@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using GalaSoft.MvvmLight.Messaging;
+using QuizApp.Messages;
+using QuizApp.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,7 +21,13 @@ namespace QuizApp
     {
         public MainWindow()
         {
+            this.DataContext = new MainViewModel();
+            Messenger.Default.Register<EndOfGame>(this, CloseTheGame);
             InitializeComponent();
+        }
+        void CloseTheGame(EndOfGame obj)
+        {
+            this.Close();
         }
     }
 }
